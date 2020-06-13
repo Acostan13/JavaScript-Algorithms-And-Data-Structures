@@ -32,7 +32,7 @@ function addUpTo(n) {
 var time1 = performance.now();
 addUpTo(1000000000);
 var time2 = performance.now();
-console.log(`Time Elapsed: ${(time2 - time1) / 1000} seconds.`) // Significantly Faster! => ~0.000024999999324791133 seconds
+console.log(`Time Elapsed: ${(time2 - time1) / 1000} seconds.`) // Significantly Faster! => ~0.000025 seconds
 ```
 
 The Problem with Time
@@ -71,7 +71,7 @@ When determining the time complexity of an algorithm, there are some helpful rul
 - Constants don't matter
 - Smaller Terms Don't Matter
 
-Big O Shorthands
+### Big O Shorthands ###
 - Arithmetic operations are constant
 - Variable assignment is constant
 - Accessing elements in an array (by index) or object (by key) is constant
@@ -92,5 +92,33 @@ function logAtMost5(n) {
   for (var i = 1; i <= Math.min(5, n); i++) { // => O(1)
     console.log(i);
   }
+}
+```
+
+## Space Complexity
+
+- Most primitives (booleans, numbers, undefined, null) are constant space
+- Strings require O(n) space (where n is the string length)
+- Reference types are generally O( n), where n is the length (for arrays) or the number of keys (for objects)
+
+### An Example ###
+```JavaScript
+function sum(arr) {
+  let total = 0; // One number
+  for (let i = 0; i < arr.length; i++) { // i => Another number
+    total += arr[i];
+  }
+  return total;
+} // 2 numbers => O(1) space
+```
+
+### Another Example ###
+```JavaScript
+function double(arr) {
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArr.push(2 * arr[i]);
+  }
+  return newArr; // n numbers => O(n) space
 }
 ```
