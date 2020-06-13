@@ -1,6 +1,6 @@
 # Big O Notation
 
-## Timing of Code
+## Time Complexity
 
 **Example**
 Suppose we want to write a function that calculates the sum of all numbers from 1 up to (and including) some number ```n```.
@@ -35,7 +35,7 @@ var time2 = performance.now();
 console.log(`Time Elapsed: ${(time2 - time1) / 1000} seconds.`) // Significantly Faster! => ~0.000024999999324791133 seconds
 ```
 
-### The Problem with Time
+The Problem with Time
 - Different machines will record different times
 - The same machine will record different times!
 - For fast algorithms, speed measurements may not be precise enough?
@@ -55,4 +55,42 @@ function countUpAndDown(n) {
 }
 ```
 
+### Yet Another Example ###
+```JavaScript
+function printAllPairs(n) {
+  for (var i = 0; i < n; i++) {
+    for (var j = 0; j < n; j++) { // O(n) operation inside of an O(n) operation => O(n^2)
+      console.log(i, j);
+    }
+  }
+}
+```
 
+### Simplifying Big O Expressions
+When determining the time complexity of an algorithm, there are some helpful rule of thumbs for big O expressions.
+- Constants don't matter
+- Smaller Terms Don't Matter
+
+Big O Shorthands
+- Arithmetic operations are constant
+- Variable assignment is constant
+- Accessing elements in an array (by index) or object (by key) is constant
+- In a loop, the the complexity is the length of the loop times the complexity of whatever happens inside of the loop
+
+
+### A Couple More Examples ###
+
+```JavaScript
+function logAtLeast5(n) {
+  for (var i = 1; i <= Math.max(5, n); i++) { // => O(n)
+    console.log(i);
+  }
+}
+```
+```JavaScript
+function logAtMost5(n) {
+  for (var i = 1; i <= Math.min(5, n); i++) { // => O(1)
+    console.log(i);
+  }
+}
+```
