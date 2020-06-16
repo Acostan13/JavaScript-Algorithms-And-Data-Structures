@@ -81,3 +81,63 @@ function charCount(str){
     return result
 }
 ```
+
+## Step 5: Look Back & Refactor
+
+- Can you check the result?
+- Can you derive the result differently?
+- Can you understand it at a glance?
+- Can you use the result or method for some other problem?
+- Can you improve the performance of your solution?
+- Can you think of other ways to refactor?
+- How have other people solved this problem?
+
+### Slower Solution
+
+```JavaScript
+function charCount(str){
+    // make object to return at end
+    let result = {}
+    // loop over string, for each character...
+    for(let char of str){
+        char = char.toLowerCase()
+        // if the char is a number/letter
+        if(/[a-z0-9]/.test(char)) {
+            // add one to the char count OR add the char to the result objejct and set it's value to 1
+            result[char] = ++result[char] || 1
+        }
+    }
+    // return the result
+    return result
+}
+```
+
+### Faster Solution
+
+```JavaScript
+function charCount(str){
+    // make object to return at end
+    let result = {}
+    // loop over string, for each character...
+    for(let char of str){
+        char = char.toLowerCase()
+        // if the char is a number/letter
+        if(isAplhaNumeric(char)) {
+            // add one to the char count OR add the char to the result objejct and set it's value to 1
+            result[char] = ++result[char] || 1
+        }
+    }
+    // return the result
+    return result
+}
+
+function isAplhaNumeric(char){
+    let code = char.charCodeAt(0)
+    if( !(code > 47 && code < 58) &&
+        !(code > 64 && code < 91) &&
+        !(code > 96 && code < 123)) {
+        return false
+    }
+    return true
+}
+```
