@@ -1,4 +1,4 @@
-# Algorithms and Problem Solving Patterns
+# Algorithms and Problem Solving Approach
 
 ## Step 1: Understand the Problem
 
