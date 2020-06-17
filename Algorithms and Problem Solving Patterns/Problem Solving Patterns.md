@@ -8,7 +8,7 @@ This can often avoid the need for nested loops or O(N^2) operations with arrays 
 
 ### Example
 
-Write a function called same, which accepts two arrays. The function should return true if every value in the array has it's corresponding value squared in the second array. The frequency of values must be the same.
+Write a function called **same**, which accepts two arrays. The function should return true if every value in the array has it's corresponding value squared in the second array. The frequency of values must be the same.
 
 **Initial Solution**
 
@@ -74,7 +74,7 @@ same([1,2,3,2], [9,1,4,4]) // true
 
 ### Challenge: Anagrams
 
-Given two strings, write a function to determine if the second string is an anagram of the first. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+Given two strings, write a function to determine if the second string is an anagram of the first. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as _cinema_, formed from _iceman_.
 
 ```JavaScript
 validAnagram('', '') // true
@@ -159,14 +159,14 @@ function validAnagram(first, second) {
 // {a: 0, n: 0, g: 0, r: 0, m: 0,s:1}
 validAnagram('anagrams', 'nagaramm')
 ```
+
 ## Multiple Pointers Pattern
 
-Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition.
-Very efficient for solving problems with minimal space complexity as well.
+Creating **pointers** or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition. **Very** efficient for solving problems with minimal space complexity as well.
 
 ### Example
 
-Write a function called same, which accepts two arrays. The function should return true if every value in the array has it's corresponding value squared in the second array. The frequency of values must be the same.
+Write a function called **sumZero** which accepts a **sorted** array of integers. The function should find the **first** pair where the sum is 0. Return an array that includes both values that sum to zero or undefined if a pair does not exist.
 
 ```Javascript
 sumZero([-3,-2,-1,0,1,2,3]) // [-3,3]
@@ -238,7 +238,7 @@ countUniqueValues = (arr) => {
   if(arr.length === 0) {
     return 0
   }
-  
+
   let left = 0
   let right = 1
 
@@ -285,13 +285,13 @@ countUniqueValues([-2,-1,-1,0,1]) // 4
 
 ## Sliding Window Pattern
 
-This pattern involves creating a window which can either be an array or number from one position to another
-Depending on a certain condition, the window either increases or closes (and a new window is created)
+This pattern involves creating a **window** which can either be an array or number from one position to another.
+Depending on a certain condition, the window either increases or closes (and a new window is created).
 Very useful for keeping track of a subset of data in an array/string etc.
 
 ### Example
 
-Write a function called maxSubarraySum which accepts an array of integers and a number called n. The function should calculate the maximum sum of n consecutive elements in the array.
+Write a function called maxSubarraySum which accepts an array of integers and a number called _n_. The function should calculate the maximum sum of n consecutive elements in the array.
 
 ```JavaScript
 maxSubarraySum([1,2,5,2,8,1,5],2) // 10
@@ -345,3 +345,67 @@ maxSubarraySum = (arr, num) => {
 }
 ```
 
+## Divide and Conquer
+
+This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data.
+This pattern can tremendously **decrease time complexity**
+
+### Example
+
+Given a sorted array of integers, write a function called search, that accepts a value and returns the index where the value passed to the function is located. If the value is not found, return -1
+
+```JavaScript
+search([1,2,3,4,5,6],4) // 3
+search([1,2,3,4,5,6],6) // 5
+search([1,2,3,4,5,6],11) // -1
+```
+
+**Naive Solution**
+
+- Linear Search
+- Time Complexity - O(n)
+
+```JavaScript
+search = (arr, val) => {
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i] === val){
+            return i
+        }
+    }
+    return -1
+}
+```
+
+**Refactored Solution**
+
+- Binary Search
+- Time Complexity - O(log n)
+
+```JavaScript
+search = (arr, val) => {
+    let min = 0
+    let max = array.length - 1
+
+    while (min <= max) {
+        let middle = Math.floor((min + max) / 2)
+        let currentElement = array[middle]
+
+        if (array[middle] < val) {
+            min = middle + 1
+        }
+        else if (array[middle] > val) {
+            max = middle - 1
+        }
+        else {
+            return middle
+        }
+    }
+    return -1
+}
+```
+
+## Recap
+- Developing a problem solving approach is incredibly important
+- Thinking about code before writing code will always make you solve problems faster
+- Be mindful about problem solving patterns
+- Using frequency counters, multiple pointers, sliding window and divide and conquer will help you reduce time and space complexity and help solve more challenging problems
