@@ -6,7 +6,7 @@ This pattern uses objects or sets to collect values/frequencies of values
 
 This can often avoid the need for nested loops or O(N^2) operations with arrays / strings
 
-## Example
+### Example
 
 Write a function called same, which accepts two arrays. The function should return true if every value in the array has it's corresponding value squared in the second array. The frequency of values must be the same.
 
@@ -72,7 +72,7 @@ same = (arr1, arr2) => {
 same([1,2,3,2], [9,1,4,4]) // true
 ```
 
-## Challenge: Anagrams
+### Challenge: Anagrams
 
 Given two strings, write a function to determine if the second string is an anagram of the first. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
 
@@ -164,7 +164,7 @@ validAnagram('anagrams', 'nagaramm')
 Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition.
 Very efficient for solving problems with minimal space complexity as well.
 
-## Example
+### Example
 
 Write a function called same, which accepts two arrays. The function should return true if every value in the array has it's corresponding value squared in the second array. The frequency of values must be the same.
 
@@ -216,7 +216,7 @@ sumZero = (arr) => {
 sumZero([-4, -3, -2, -1, 0, 1, 2, 3, 10]) // [-3,3]
 ```
 
-## Challenge: Count Unique Values
+### Challenge: Count Unique Values
 
 Implement a function called `countUniqueValues`, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted.
 
@@ -282,3 +282,66 @@ countUniqueValues([1,2,3,4,4,4,7,7,12,12,13]) // 7
 countUniqueValues([]) // 0
 countUniqueValues([-2,-1,-1,0,1]) // 4
 ```
+
+## Sliding Window Pattern
+
+This pattern involves creating a window which can either be an array or number from one position to another
+Depending on a certain condition, the window either increases or closes (and a new window is created)
+Very useful for keeping track of a subset of data in an array/string etc.
+
+### Example
+
+Write a function called maxSubarraySum which accepts an array of integers and a number called n. The function should calculate the maximum sum of n consecutive elements in the array.
+
+```JavaScript
+maxSubarraySum([1,2,5,2,8,1,5],2) // 10
+maxSubarraySum([1,2,5,2,8,1,5],4) // 17
+maxSubarraySum([4,2,1,6],1) // 6
+maxSubarraySum([4,2,1,6,2],4) // 13
+maxSubarraySum([],4) // null
+```
+
+**Naive Solution**
+
+- Time Complexity - O(n^2)
+
+```JavaScript
+maxSubarraySum = (arr, num) => {
+  if ( num > arr.length){
+    return null
+  }
+  var max = -Infinity
+  for (let i = 0; i < arr.length - num + 1; i ++){
+    temp = 0
+    for (let j = 0; j < num; j++){
+      temp += arr[i + j]
+    }
+    if (temp > max) {
+      max = temp
+    }
+  }
+  return max
+}
+```
+
+**Refactored Solution**
+
+- Time Complexity - O(n)
+
+```JavaScript
+maxSubarraySum = (arr, num) => {
+  let maxSum = 0
+  let tempSum = 0
+  if (arr.length < num) return null
+  for (let i = 0; i < num; i++) {
+    maxSum += arr[i]
+  }
+  tempSum = maxSum;
+  for (let i = num; i < arr.length; i++) {
+    tempSum = tempSum - arr[i - num] + arr[i]
+    maxSum = Math.max(maxSum, tempSum)
+  }
+  return maxSum
+}
+```
+
