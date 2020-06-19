@@ -379,7 +379,7 @@ search = (arr, val) => {
 **Refactored Solution**
 
 - Binary Search
-- Time Complexity - O(log n)
+- Time Complexity - O(n log n)
 
 ```JavaScript
 search = (arr, val) => {
@@ -390,14 +390,14 @@ search = (arr, val) => {
         let middle = Math.floor((min + max) / 2)
         let currentElement = array[middle]
 
-        if (array[middle] < val) {
-            min = middle + 1
+        if (currentElement < val) {
+          min = middle + 1
         }
-        else if (array[middle] > val) {
-            max = middle - 1
+        else if (currentElement > val) {
+          max = middle - 1
         }
         else {
-            return middle
+          return middle
         }
     }
     return -1
@@ -405,6 +405,7 @@ search = (arr, val) => {
 ```
 
 ## Recap
+
 - Developing a problem solving approach is incredibly important
 - Thinking about code before writing code will always make you solve problems faster
 - Be mindful about problem solving patterns
@@ -414,10 +415,12 @@ search = (arr, val) => {
 
 ## Frequency Counter - sameFrequency
 
-Write a functioin **sameFrequency**. Given two positive integers, find out if the two numbers have the same frequency of digits. Your solution MUST have the following complexities: 
+Write a functioin **sameFrequency**. Given two positive integers, find out if the two numbers have the same frequency of digits. Your solution MUST have the following complexities:
+
 - Time: O(n)
 
 **Sample Input:**
+
 ```JavaScript
 sameFrequency(182, 281) // true
 sameFrequency(34, 14) // false
@@ -465,3 +468,86 @@ sameFrequency = (int1, int2) => {
 
 ## Frequency Counter / Multiple Pointers - areThereDuplicates
 
+Implement a function called, areThereDuplicates which accepts a variable number of arguments, and checks whether there are any duplictes among the arguments passed in. You can solve this using the frequency counter pattern OR multiple pointers pattern.
+
+Restrictions:
+
+- Time: O(n)
+- Space: O(n)
+
+Bonus:
+
+- Time: O(n log n)
+- Space: O(1)
+
+**Examples**
+
+```JavaScript
+areThereDuplicates(1, 2, 3) // false
+areThereDuplicates(1, 2, 2) // true
+areThereDuplicates('a', 'b', 'c', 'a') // true
+```
+
+**Initial Solution**
+
+- Frequency Counter Pattern
+- Time Complexity - O(n)
+- Space Complexity - O(1)
+
+```JavaScript
+areThereDuplicates = (...items) =>{
+
+  const lookup = {}
+
+  for(let item in items){
+    let element = items[item]
+
+    lookup[element] ? lookup[element] += 1 : lookup[element] = 1
+
+    if(lookup[element] > 1) {
+      return true
+    }
+  }
+
+  return false
+}
+```
+
+**Refactored Solution**
+
+- Multiple Pointers Pattern
+- Time Complexity - O(n log n)
+- Space Complexity - O(1)
+
+```JavaScript
+areThereDuplicates = (...args) => {
+  // Sorts arguements alphabetically or numerically
+  // Time Complexity - O(n log n)
+  args.sort() 
+
+  // Two pointers
+  let start = 0
+  let next = 1
+  while(next < args.length){
+    if(args[start] === args[next]){
+        return true
+    }
+    start++
+    next++
+  }
+  return false
+}
+```
+
+**One Liner Solution**
+
+- Time Complexity - O(n)
+- Space Complexity - O(1)
+
+```JavaScript
+areThereDuplicates = () => {
+  // Returns true if the number of values in the Set object (in this case, arguments)
+  // is not equivalent to the the arguments length
+  return new Set(arguments).size !== arguments.length
+}
+```
