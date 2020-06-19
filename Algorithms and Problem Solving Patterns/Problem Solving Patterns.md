@@ -409,3 +409,59 @@ search = (arr, val) => {
 - Thinking about code before writing code will always make you solve problems faster
 - Be mindful about problem solving patterns
 - Using frequency counters, multiple pointers, sliding window and divide and conquer will help you reduce time and space complexity and help solve more challenging problems
+
+# Bonus Challenges
+
+## Frequency Counter - sameFrequency
+
+Write a functioin **sameFrequency**. Given two positive integers, find out if the two numbers have the same frequency of digits. Your solution MUST have the following complexities: 
+- Time: O(n)
+
+**Sample Input:**
+```JavaScript
+sameFrequency(182, 281) // true
+sameFrequency(34, 14) // false
+sameFrequency(3589578, 5879385) // true
+sameFrequency(22, 222) // false
+```
+
+**Solution**
+
+- Time Complexity - O(n)
+
+```JavaScript
+sameFrequency = (int1, int2) => {
+  // edge case checking if the ints are of the same value
+  if(int1 === int2) {
+    return true
+  }
+
+  // Converting ints to strings
+  let firstDigits = int1.toString()
+  let secondDigits = int2.toString()
+
+  // keeps track of frequency of digits
+  const lookup = {}
+
+  for (let i = 0; i < firstDigits.length; i++) {
+    let digit = firstDigits[i]
+    // if digit exists, increment, otherwise set to 1
+    lookup[digit] ? lookup[digit] += 1 : lookup[digit] = 1
+  }
+
+  for (let i = 0; i < secondDigits.length; i++) {
+    let digit = secondDigits[i]
+    // can't find digit or digit is zero then it's not inputs aren't identical
+    if (!lookup[digit]) {
+      return false
+    } else {
+      lookup[digit] -= 1
+    }
+  }
+
+  return true
+}
+```
+
+## Frequency Counter / Multiple Pointers - areThereDuplicates
+
